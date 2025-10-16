@@ -11,10 +11,12 @@ export const appConfig: ApplicationConfig = {
     importProvidersFrom(NgxsModule.forRoot([TaskState], { developmentMode: true }), NgxsLoggerPluginModule.forRoot()), provideStore()]
 };*/
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { provideEffects } from '@ngrx/effects';
+import { TaskEffects } from './store/task.effects';
 
 export const appConfig: ApplicationConfig = {
   providers: [provideZoneChangeDetection({ eventCoalescing: true }), provideRouter(routes),
-     provideStore({ tasks: taskReducer }),    importProvidersFrom(
+     provideStore({ tasks: taskReducer }), provideEffects([TaskEffects]),   importProvidersFrom(
       StoreDevtoolsModule.instrument({
         maxAge: 25,        // guarda hasta 25 acciones
         logOnly: false,    // permite dispatch y time-travel en dev
