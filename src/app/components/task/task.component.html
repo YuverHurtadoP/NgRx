@@ -1,0 +1,28 @@
+<div class="container">
+  <h1>Lista de Tareas</h1>
+
+  <div class="add-row">
+    <input
+      type="text"
+      placeholder="Nueva tarea..."
+      [(ngModel)]="newDescription"
+      (keydown.enter)="addTodo()"
+    />
+    <button (click)="addTodo()">+</button>
+  </div>
+
+  <ul class="todo-list">
+    <li *ngFor="let todo of todos$ | async" [class.completed]="todo.completed">
+      <label>
+        <input type="checkbox" [checked]="todo.completed" (change)="toggleComplete(todo.id)" />
+        <span class="desc">{{ todo.description }}</span>
+      </label>
+      <button class="trash" (click)="removeTodo(todo.id)">🗑️</button>
+    </li>
+  </ul>
+
+  <div class="actions">
+    <button (click)="markAllCompleted()">Marcar todo</button>
+    <button (click)="clearCompleted()">Borrar completadas</button>
+  </div>
+</div>
